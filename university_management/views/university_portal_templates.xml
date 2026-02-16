@@ -1,0 +1,157 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <template id="university_portal" name="Detailed University Portal">
+        &lt;!DOCTYPE html&gt;
+        <html lang="en">
+            <head>
+                <meta charset="utf-8"/>
+                <meta name="viewport" content="width=device-width, initial-scale=1"/>
+                <title>University Dashboard</title>
+                <t t-call-assets="web.assets_frontend" t-js="false"/>
+                <style>
+                    body { background-color: #f4f7f6; font-family: 'Inter', sans-serif; }
+                    .sidebar { height: 100vh; background: #2c3e50; color: white; position: fixed; width: 240px; }
+                    .main-content { margin-left: 240px; padding: 30px; }
+                    .card-stats { border: none; border-radius: 12px; transition: transform 0.2s; }
+                    .card-stats:hover { transform: translateY(-5px); }
+                    .sidebar-link { color: #bdc3c7; padding: 12px 20px; display: block; text-decoration: none; transition: 0.3s; }
+                    .sidebar-link:hover, .sidebar-link.active { background: #34495e; color: #3498db; border-left: 4px solid #3498db; }
+                    .status-dot { height: 10px; width: 10px; border-radius: 50%; display: inline-block; margin-right: 5px; }
+                    .bg-paid { background-color: #2ecc71; } .bg-due { background-color: #e74c3c; }
+                </style>
+            </head>
+            <body>
+                <!-- SIDEBAR -->
+                <div class="sidebar d-none d-md-block shadow">
+                    <div class="p-4 text-center">
+                        <i class="fa fa-university fa-3x text-info mb-2"></i>
+                        <h5 class="fw-bold">CS DEPARTMENT</h5>
+                    </div>
+                    <nav class="mt-3">
+                        <a href="/portal" class="sidebar-link active"><i class="fa fa-dashboard me-2"></i> Dashboard</a>
+                        <a href="#" class="sidebar-link"><i class="fa fa-users me-2"></i> Students</a>
+                        <a href="#" class="sidebar-link"><i class="fa fa-book me-2"></i> Subjects</a>
+                        <a href="#" class="sidebar-link"><i class="fa fa-user-md me-2"></i> Teachers</a>
+                        <hr class="mx-3 opacity-25"/>
+                        <a href="/web" class="sidebar-link"><i class="fa fa-arrow-left me-2"></i> Back to Odoo</a>
+                    </nav>
+                </div>
+
+                <!-- MAIN CONTENT -->
+                <div class="main-content">
+                    <!-- HEADER -->
+                    <div class="d-flex justify-content-between align-items-center mb-4">
+                        <h2 class="fw-bold">Academic Overview</h2>
+                        <div class="dropdown">
+                            <button class="btn btn-white shadow-sm rounded-pill px-4 dropdown-toggle" type="button">
+                                <i class="fa fa-user-circle me-2 text-primary"></i> Admin User
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- STATS ROW -->
+                    <div class="row g-4 mb-4">
+                        <div class="col-md-4">
+                            <div class="card card-stats shadow-sm bg-primary text-white p-3">
+                                <div class="d-flex justify-content-between">
+                                    <div><p class="mb-1 opacity-75">Enrolled Students</p><h3><t t-esc="student_count"/></h3></div>
+                                    <i class="fa fa-user-plus fa-2x opacity-50"></i>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="card card-stats shadow-sm bg-success text-white p-3">
+                                <div class="d-flex justify-content-between">
+                                    <div><p class="mb-1 opacity-75">Active Teachers</p><h3><t t-esc="teacher_count"/></h3></div>
+                                    <i class="fa fa-graduation-cap fa-2x opacity-50"></i>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="card card-stats shadow-sm bg-info text-white p-3">
+                                <div class="d-flex justify-content-between">
+                                    <div><p class="mb-1 opacity-75">Total Subjects</p><h3><t t-esc="subject_count"/></h3></div>
+                                    <i class="fa fa-book fa-2x opacity-50"></i>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row g-4">
+                        <!-- STUDENT DIRECTORY -->
+                        <div class="col-lg-8">
+                            <div class="card border-0 shadow-sm rounded-4">
+                                <div class="card-header bg-white border-0 py-3">
+                                    <h5 class="mb-0 fw-bold">Student Directory</h5>
+                                </div>
+                                <div class="card-body p-0">
+                                    <div class="table-responsive">
+                                        <table class="table table-hover align-middle mb-0">
+                                            <thead class="bg-light">
+                                                <tr>
+                                                    <th class="ps-4">Name</th>
+                                                    <th>Admission #</th>
+                                                    <th>Batch</th>
+                                                    <th>Fee Status</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <t t-foreach="students" t-as="student">
+                                                    <tr>
+                                                        <td class="ps-4">
+                                                            <div class="d-flex align-items-center">
+                                                                <div class="bg-secondary rounded-circle me-3 text-white d-flex align-items-center justify-content-center" style="width:35px; height:35px; font-size:12px;">
+                                                                    <t t-esc="student.name[:1]"/>
+                                                                </div>
+                                                                <span class="fw-bold text-dark"><t t-esc="student.name"/></span>
+                                                            </div>
+                                                        </td>
+                                                        <td><t t-esc="student.admission_number"/></td>
+                                                        <td><span class="badge bg-light text-dark"><t t-esc="student.batch.name"/></span></td>
+                                                        <td>
+                                                            <span t-attf-class="status-dot bg-{{ 'paid' if student.fees_state == 'paid' else 'due' }}"></span>
+                                                            <t t-esc="student.fees_state.capitalize()"/>
+                                                        </td>
+                                                    </tr>
+                                                </t>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- TIMETABLE SIDEBAR -->
+                        <div class="col-lg-4">
+                            <div class="card border-0 shadow-sm rounded-4">
+                                <div class="card-header bg-white border-0 py-3">
+                                    <h5 class="mb-0 fw-bold">Live Timetable</h5>
+                                </div>
+                                <div class="card-body">
+                                    <t t-foreach="upcoming_lectures" t-as="lecture">
+                                        <div class="mb-3 p-3 border-start border-4 border-primary bg-light rounded">
+                                            <div class="d-flex justify-content-between">
+                                                <small class="text-muted"><t t-esc="lecture.start_datetime.strftime('%H:%M')"/></small>
+                                                <span class="badge bg-white text-primary border"><t t-esc="lecture.room"/></span>
+                                            </div>
+                                            <h6 class="mt-1 mb-0 fw-bold"><t t-esc="lecture.subject_id.name"/></h6>
+                                            <small class="text-muted"><t t-esc="lecture.teacher_id.name"/></small>
+                                        </div>
+                                    </t>
+                                    <t t-if="not upcoming_lectures">
+                                        <p class="text-center text-muted py-4">No lectures today.</p>
+                                    </t>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- FOOTER -->
+                    <footer class="mt-5 text-center text-muted small">
+                        <p>2024 University Management System | <a href="#">Terms</a> | <a href="#">Support</a></p>
+                    </footer>
+                </div>
+            </body>
+        </html>
+    </template>
+</odoo>

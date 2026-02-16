@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <!-- ========== LIST VIEW ========== -->
+    <record id="view_university_students_list" model="ir.ui.view">
+        <field name="name">university.students.list</field>
+        <field name="model">university.students</field>
+        <field name="arch" type="xml">
+            <list>
+                <field name="name"/>
+                <field name="batch"/>
+                <field name="roll_number"/>
+                <field name="admission_number"/>
+                <field name="email"/>
+            </list>
+        </field>
+    </record>
+    <!-- ========== FORM VIEW ========== -->
+    <record id="view_university_students_form" model="ir.ui.view">
+        <field name="name">university.students.form</field>
+        <field name="model">university.students</field>
+        <field name="arch" type="xml">
+            <form string="Student">
+                <header>
+                    <button name="fee_payment_proces" string="Fees" class="btn-secondary" type="object"/>
+                    <button name="open_university_portal" string="My Portal" class="btn-secondary" type="object"/>
+                    <field name="fees_state" widget="statusbar" statusbar_visible="due,paid,received"/>
+                </header>
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="name"/>
+                            <field name="batch"/>
+                            <field name="admission_number" readonly="1"/>
+                            <field name="roll_number" readonly="1"/>
+                            <field name="gender"/>                        
+                            <field name="active"/>
+                        </group>
+                        <group>
+                            <field name="image" widget="image" options="{'size': [250, 250]}"/>
+                            <field name="date_of_birth"/>
+                            <field name="phone_no"/>
+                            <field name="email"/>
+                            <field name="address"/>
+                            <field name="fee_amount" readonly="1"/>
+                            <button name="accept_payment" string="Accept Payment" type="object" class="btn-primary"/>
+                        </group>
+                    </group>
+                    <notebook>
+                        <page string="Teachers">
+                            <group>
+                                <field name="teacher_id" string="Class Teacher"/>
+                            </group>
+                        </page>
+                    </notebook>
+                </sheet>
+            </form>
+        </field>
+    </record>
+    <!-- Window action -->
+    <record id="action_students_info" model="ir.actions.act_window">
+        <field name="name">Students</field>
+        <field name="res_model">university.students</field>
+        <field name="view_mode">list,form</field>
+        <field name="help" type="html">
+            <p>Create Your Student</p>
+        </field>
+    </record>
+</odoo>

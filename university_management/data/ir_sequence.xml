@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <data noupdate="1">
+
+        <!-- Admission Sequence: CSADMIT001, CSADMIT002, ... -->
+        <record id="seq_university_students_admission" model="ir.sequence">
+            <field name="name">CS Student Admission</field>
+            <field name="code">university.students.admission</field>
+            <field name="prefix">CSADMIT</field>
+            <field name="padding">3</field>
+            <field name="number_next">1</field>
+            <field name="number_increment">1</field>
+        </record>
+
+        <!-- Roll Sequence per Division -->
+
+        <record id="seq_university_students_roll_cs1" model="ir.sequence">
+            <field name="name">university Student Roll (CS-1)</field>
+            <field name="code">university.students.roll.CS-1</field>
+            <field name="prefix">CS1-</field>
+            <field name="padding">4</field>
+            <field name="number_next">1</field>
+            <field name="number_increment">1</field>
+        </record>
+
+        <record id="seq_university_students_roll_cs2" model="ir.sequence">
+            <field name="name">university Student Roll (CS-2)</field>
+            <field name="code">university.students.roll.CS-2</field>
+            <field name="prefix">CS2-</field>
+            <field name="padding">4</field>
+            <field name="number_next">1</field>
+            <field name="number_increment">1</field>
+        </record>
+
+        <record id="seq_university_students_roll_cs3" model="ir.sequence">
+            <field name="name">university Student Roll (CS-3)</field>
+            <field name="code">university.students.roll.CS-3</field>
+            <field name="prefix">CS3-</field>
+            <field name="padding">4</field>
+            <field name="number_next">1</field>
+            <field name="number_increment">1</field>
+        </record>
+
+        <!-- Teacher Employee ID: CST1, CST2, CST3... -->
+        <record id="seq_university_teachers_employee" model="ir.sequence">
+            <field name="name">university Teacher Employee ID</field>
+            <field name="code">university.teachers.employee</field>
+            <field name="prefix">CST</field>
+            <field name="padding">1</field>
+            <field name="number_next">1</field>
+            <field name="number_increment">1</field>
+        </record>
+
+        <!-- Subject ID: SBJ1, SBJ2, SBJ3... -->
+        <record id="seq_university_subject" model="ir.sequence">
+            <field name="name">university Subject ID</field>
+            <field name="code">university.subject.code</field>
+            <field name="prefix">SBJ</field>
+            <field name="padding">1</field>
+            <field name="number_next">1</field>
+            <field name="number_increment">1</field>
+        </record>
+
+    </data>
+</odoo>

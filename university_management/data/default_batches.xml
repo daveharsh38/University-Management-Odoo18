@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo noupdate="1">
+
+    <record id="batch_cs_1" model="university.batch">
+        <field name="name">CS-1</field>
+    </record>
+
+    <record id="batch_cs_2" model="university.batch">
+        <field name="name">CS-2</field>
+    </record>
+
+    <record id="batch_cs_3" model="university.batch">
+        <field name="name">CS-3</field>
+    </record>
+
+</odoo>

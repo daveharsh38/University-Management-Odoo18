@@ -1,0 +1,7 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_university_students,university.students,model_university_students,base.group_user,1,1,1,1
+access_university_teachers,university.teachers,model_university_teachers,base.group_user,1,1,1,1
+access_university_subject,university.subject,model_university_subject,base.group_user,1,1,1,1
+access_university_fees_wizard,university.fees.wizard,model_university_fees_wizard,base.group_user,1,1,1,1
+access_university_batch,university.batch,model_university_batch,base.group_user,1,0,0,0
+access_university_lecture,university.lecture,model_university_lecture,base.group_user,1,1,1,1
