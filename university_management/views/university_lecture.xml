@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+
+    <!-- ========== LIST VIEW ========== -->
+    <record id="view_university_lecture_list" model="ir.ui.view">
+        <field name="name">university.lecture.list</field>
+        <field name="model">university.lecture</field>
+        <field name="arch" type="xml">
+            <list string="Lectures">
+                <field name="name"/>
+                <field name="batch_id"/>
+                <field name="subject_id"/>
+                <field name="teacher_id"/>
+                <field name="start_datetime"/>
+                <field name="end_datetime"/>
+                <field name="state"/>
+            </list>
+        </field>
+    </record>
+
+    <!-- ========== FORM VIEW ========== -->
+    <record id="view_university_lecture_form" model="ir.ui.view">
+        <field name="name">university.lecture.form</field>
+        <field name="model">university.lecture</field>
+        <field name="arch" type="xml">
+            <form string="Lecture">
+                <header>
+                    <!-- keep simple: no invisible expressions until it works -->
+                    <button name="action_confirm" type="object" string="Confirm" class="btn-primary"/>
+                    <button name="action_cancel" type="object" string="Cancel" class="btn-secondary"/>
+                    <button name="action_set_draft" type="object" string="Set Draft"/>
+
+                    <button name="action_view_batch_timetable"
+                            type="object"
+                            string="View Batch Timetable"
+                            class="btn-secondary"/>
+
+                    <field name="state" widget="statusbar" statusbar_visible="draft,confirmed,cancelled"/>
+                </header>
+
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="batch_id"/>
+                            <field name="subject_id"/>
+                            <field name="teacher_id"/>
+                            <field name="state"/>
+                        </group>
+                        <group>
+                            <field name="start_datetime"/>
+                            <field name="end_datetime"/>
+                            <field name="room"/>
+                        </group>
+                    </group>
+
+                    <group>
+                        <field name="note"/>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <!-- ========== CALENDAR VIEW ========== -->
+    <record id="view_university_lecture_calendar" model="ir.ui.view">
+        <field name="name">university.lecture.calendar</field>
+        <field name="model">university.lecture</field>
+        <field name="arch" type="xml">
+            <calendar string="Timetable"
+                      date_start="start_datetime"
+                      date_stop="end_datetime"
+                      color="batch_id"
+                      quick_create="0"
+                      mode="month">
+                <field name="name"/>
+                <field name="subject_id"/>
+                <field name="teacher_id"/>
+                <field name="batch_id"/>
+            </calendar>
+        </field>
+    </record>
+
+    <!-- ========== WINDOW ACTION ========== -->
+    <record id="action_university_lecture" model="ir.actions.act_window">
+        <field name="name">Timetable (Lectures)</field>
+        <field name="res_model">university.lecture</field>
+        <field name="view_mode">calendar,list,form</field>
+        <field name="help" type="html">
+            <p>Create lectures manually in Calendar or generate them using the Wizard.</p>
+        </field>
+    </record>
+
+</odoo>

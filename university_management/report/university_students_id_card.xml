@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <!--    Report Template-->
+    <template id="university_students_i_card">
+        <t t-call="web.html_container">
+            <t t-foreach="docs" t-as="o">
+                <t t-call="web.basic_layout">
+                    <div class="page">
+                        <!-- Card Container -->
+                        <div style="width: 320px; height: 200px; border: 2px solid #333; border-radius: 12px; font-family: sans-serif; overflow: hidden; background-color: #fff; margin-bottom: 20px;">
+                            
+                            <!-- Header -->
+                            <div style="background-color: #004a99; color: white; text-align: center; padding: 5px; font-weight: bold; font-size: 14px;">
+                                UNIVERSITY STUDENT ID
+                            </div>
+
+                            <div style="padding: 10px; display: flex;">
+                                <!-- Photo Section -->
+                                <div style="width: 80px; height: 95px; border: 1px solid #ddd; margin-right: 15px;">
+                                    <img t-if="o.image" t-att-src="image_data_uri(o.image)" style="width: 100%; height: 100%; object-fit: cover;"/>
+                                    <img t-if="not o.image" src="/web/static/img/placeholder.png" style="width: 100%; height: 100%;"/>
+                                </div>
+
+                                <!-- Details Section -->
+                                <div style="font-size: 11px; line-height: 1.6;">
+                                    <div style="font-size: 13px; font-weight: bold; color: #004a99; margin-bottom: 5px;">
+                                        <span t-field="o.name"/>
+                                    </div>
+                                    <div><strong>Roll No:</strong> <span t-field="o.roll_number"/></div>
+                                    <div><strong>Adm No:</strong> <span t-field="o.admission_number"/></div>
+                                    <div><strong>Batch:</strong> <span t-field="o.batch.name"/></div>
+                                    <div><strong>Phone:</strong> <span t-field="o.phone_no"/></div>
+                                    <div><strong>Gender:</strong> <span t-field="o.gender"/></div>
+                                </div>
+                            </div>
+
+                            <!-- Footer -->
+                            <div style="background-color: #f1f1f1; border-top: 1px solid #ddd; padding: 5px 10px; font-size: 9px; text-align: center;">
+                                If found, please return to University Admin Office.
+                            </div>
+                        </div>
+                    </div>
+                </t>
+            </t>
+        </t>
+    </template>
+
+
+</odoo>
